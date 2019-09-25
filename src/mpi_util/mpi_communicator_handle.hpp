@@ -31,6 +31,7 @@
 #include <mpi.h>
 #include <cassert>
 #include <memory>
+#include <iostream>
 #include "mpi_util/mpi_check_status.hpp"
 #include "spfft/config.h"
 #include "spfft/exceptions.hpp"
@@ -53,7 +54,9 @@ public:
       int mpi_finalized_flag;
       MPI_Finalized(&mpi_finalized_flag);
       if (mpi_finalized_flag==0) {
+        std::cout << "mpi_finalized_flag: " << mpi_finalized_flag << "\t " << "calling MPI_Comm_free:\n";
         MPI_Comm_free(ptr);
+        std::cout << "after call to MPI_Comm_free\n";
       }
       delete ptr;
     });
